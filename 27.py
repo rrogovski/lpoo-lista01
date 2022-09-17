@@ -1,19 +1,15 @@
-from datetime import datetime
-
+from datetime import datetime, timedelta
 
 print("Olá humano 🖖\n")
 
 while True:
     try:
-        input_valor = int(input("Digite a sua idade:\n✏  "))
+        input_dias = int(input("Digite quantos dias de vida você tem:\n✏  "))
         break
     except ValueError:
         print("🚨 Valor inválido. Tente novamente!\n")
         
-today = datetime.today()
+        
+data_nascimento = datetime.today() - timedelta(days=input_dias)
 
-print(f"Você já viveu {today.year - input_valor} anos.\n")
-
-print(f"Você já viveu {today.month - input_valor} anos")
-
-print(f"Você já viveu {(today - datetime.date(today.year - input_valor, today.month, today.day)).days} dias")
+print(f"Data de nascimento: {data_nascimento.strftime('%d/%m/%Y')}")

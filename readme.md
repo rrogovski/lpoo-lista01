@@ -445,3 +445,431 @@ print(f"O menor número da lista é {min(values_int)}")
 ```
 
 ### 27 - Faça um algoritmo que leia a idade de uma pessoa expressa em dias e mostre-a expressa em anos, meses e dias.
+
+
+```py
+from datetime import datetime, timedelta
+
+print("Olá humano 🖖\n")
+
+while True:
+    try:
+        input_dias = int(input("Digite quantos dias de vida você tem:\n✏  "))
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        
+        
+data_nascimento = datetime.today() - timedelta(days=input_dias)
+
+print(f"Data de nascimento: {data_nascimento.strftime('%d/%m/%Y')}")
+```
+
+### 28 - Faça um programa que receba um valor que é o valor pago, um segundo valor que é o preço do produto e retorne o troco a ser dado.
+
+```py
+print("Olá humano 🖖\n")
+
+while True:
+    try:
+        input_valor_pago = float(input("Digite o valor pago:\n✏  "))
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        
+while True:
+    try:
+        input_valor_produto = float(input("Digite o valor do produto:\n✏  "))
+        if input_valor_pago < input_valor_produto:
+            raise ValueError("O valor pago deve ser igual ou maior que o valor do produto.")
+        break
+    except ValueError as e:
+        print("\n🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"Valor do troco: {input_valor_pago - input_valor_produto:.2f}")
+```
+
+### 29 - Elaborar um algoritmo que lê 3 valores a, b, c e verifica se eles formam ou não um triângulo. Vamos supor que os valores lidos são inteiros e positivos. Caso os valores formem um triângulo, informar se o triângulo é:
+
+* Equilátero: possui os três lados com medidas iguais.
+* Isósceles: possui dois lados com medidas iguais.
+* Escaleno: possui os três lados com medidas diferentes.
+
+Lembre-se que para formar um triângulo:
+
+* Nenhum dos lados pode ser igual a zero;
+* Um lado não pode ser maior do que a soma dos outros dois;
+
+```py
+print("Olá humano 🖖\n")
+
+while True:
+    try:
+        input_a = int(input("Digite o valor do lado a do de um triângulo:\n✏  "))
+        if input_a < 1:
+            raise ValueError("O valor deve ser positivo.")
+        break
+    except ValueError as e:
+        print("\n🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+while True:
+    try:
+        input_b = int(input("Digite o valor do lado b do de um triângulo:\n✏  "))
+        if input_b < 1:
+            raise ValueError("O valor deve ser positivo.")
+        break
+    except ValueError as e:
+        print("\n🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+while True:
+    try:
+        input_c = int(input("Digite o valor do lado c do de um triângulo:\n✏  "))
+        if input_c < 1:
+            raise ValueError("O valor deve ser positivo.")
+        if input_c > input_a + input_b:
+            raise ValueError("O valor de c deve ser menor ou igual a soma dos valores de a e b.")
+        break
+    except ValueError as e:
+        print("\n🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+lados = set([input_a, input_b, input_c])
+
+print(f"Os lados do triângulo são: {input_a}, {input_b} e {input_c}\n")
+
+if len(lados) == 1:
+    print("Triângulo equilátero")
+elif len(lados) == 2:
+    print("Triângulo isósceles")
+else:
+    print("Triângulo escaleno")
+```
+
+### 30 -  Faça um programa em Python que peça ao usuário para digitar um texto e informe quantos caracteres possui o texto informado pelo usuário.
+
+
+```py
+print("Olá humano 🖖\n")
+
+while True:
+    try:
+        input_texto = input("Digite alguma coisa e direi quantos caracteres há:\n✏  ")
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+
+print(f"O texto digitado tem {len(input_texto)} caracteres")
+```
+
+
+### 31 -  Construa um programa em Python que peça ao usuário para digitar um texto em letras maiúsculas e mostre o texto em letra minúscula, em seguida solicite-o um texto em letra minúscula e mostre-o em letra maiúsculas.
+
+```py
+print("Olá humano 🖖\n")
+
+while True:
+    try:
+        input_texto = input("Digite um texto em maiscúlo e vou deixá-lo em minúsculo:\n✏  ")
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+
+print(f"O texto digitado em minúsculo é: {input_texto.lower()}")
+
+while True:
+    try:
+        input_texto = input("Digite um texto em minúsculo e vou deixá-lo em maiscúlo:\n✏  ")
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+
+print(f"O texto digitado em maiscúlo é: {input_texto.upper()}")
+```
+
+### 32 - Construa um programa que solicite uma frase escrita pelo usuário. Peça ao usuário para escolhe ruma palavra da frase escrita e substituí-la por outra palavra.
+
+```py
+print("Olá humano 🖖\n")
+
+words = []
+frase = ''
+
+while True:
+    try:
+        input_value = input("Digite uma frase:\n✏  ")
+        frase = input_value
+        values_splited = input_value.split(' ')
+        for word in values_splited:
+            words.append(''.join(chr for chr in word if chr.isalnum()))
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+
+print(f"As palavras digitadas são:\n------------------------")
+for (index, word) in enumerate(words):
+    print(f"{index + 1} - {word}")
+    
+while True:
+    try:
+        input_idx = int(input("Digite o índice da palavra que deseja substituir:\n✏  "))
+        index = input_idx - 1
+        if index < 0 or index + 1 > len(words):
+            raise ValueError("Índice inválido.")
+        break
+    except ValueError as e:
+        print("\n🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+while True:
+    try:
+        input_new_word = input(f"Digite a nova palavra que irá substituir {words[index]}:\n✏  ")
+        break
+    except ValueError:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        
+print(f"A nova frase agora é:\n---------------------")
+print(f"{frase.replace(words[index], input_new_word)}")
+
+```
+
+### 33 - Faça um programa que converta os valores do tipo inteiro, para uma única String. Depois, substitua os valores referentes para a letra correspondente e mostre a palavra gerada.
+
+* Substituir: 1 = a, 3 = c, 4 = d, 12 = m, 14 = o, 15 = p, 17 = r, 19 = t, 20 = u
+* Código da palavra: 3 – 14 – 12 – 15 – 20 − 19 – 1 – 4 – 14 – 17
+
+
+```py
+print("Olá humano 🖖\n")
+
+alfabeto = [chr for chr in "abcdefghijklmnopqrstuvwxyz"]
+codes = []
+
+while True:
+    try:
+        input_value = input("Digite o código da frase com números de 1 a 26 separados por '-':\n✏  ")
+        input_split = input_value.split('-')
+        for code in input_split:
+            if int(code) < 1 or int(code) > 26:
+                raise ValueError("Código inválido.")
+            else:
+                codes.append(int(code))
+        break
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"A frase decodificada é:\n----------------------")
+print(''.join(alfabeto[code - 1] for code in codes))
+print(f"As opções de codificação são:\n--------------------------------")
+for (i, letra) in enumerate(alfabeto):
+    print(f"{i+1} - {letra}")
+```
+
+### 34 - Escreva um programa que dado um valor numérico digitado pelo usuário (armazenado em uma variável inteira), imprima cada um dos seus dígitos por extenso.
+
+```py
+print("Olá humano 🖖\n")
+
+numeros = ["zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"]
+
+while True:
+    try:
+        input_value = input("Digite digite um número inteiro:\n✏  ")
+        for i in input_value:
+            num = int(i)
+            if num < 0:
+                raise ValueError("Número inválido.")
+            numeros.append(num)
+        break
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"Os algarismos do número digitado são: {', '.join([numeros[int(i)] for i in str(input_value)])}")
+```
+
+### 35 - Escreva um algoritmo que solicite ao usuário a entrada de 5 números, e que exiba o somatório desses números na tela. Após exibir a soma, o programa deve mostrar também os números que o usuário digitou, um por linha.
+
+
+```py
+print("Olá humano 🖖\n")
+
+print("Digite cinco números:\n")
+numeros = []
+while len(numeros) < 5:
+    try:
+        input_value = float(input(f"{len(numeros) + 1}º número:\n✏  "))
+        numeros.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"Os números digitados foram:\n{', '.join([str(i) for i in numeros])}\n--------------------------")
+print(f"A soma dele é: {sum(numeros)}")
+```
+
+### 36 - Crie um programa que solicite a entrada de 10 números pelo usuário, armazenando-os em um vetor, e então monte outro vetor com os valores do primeiro multiplicados por 5. Exiba os valores dos dois vetores na tela, simultaneamente, em duas colunas (um em cada coluna), uma posição por linha.
+
+```py
+print("Olá humano 🖖\n")
+
+print("Digite dez números:\n")
+numeros = []
+while len(numeros) < 10:
+    try:
+        input_value = float(input(f"{len(numeros) + 1}º número:\n✏  "))
+        numeros.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"Os números digitados e sua multiplicação por 5 são:\n--------------------------")
+for i in numeros:
+    print(f"{i} x 5 = {i * 5}")
+```
+
+### 37 - Modifique o programa anterior para não aceitar a entrada do número zero, e requisitar a digitação de outro número neste caso.
+
+```py
+print("Olá humano 🖖\n")
+
+print("Digite dez números:\n")
+numeros = []
+while len(numeros) < 10:
+    try:
+        input_value = float(input(f"{len(numeros) + 1}º número:\n✏  "))
+        if input_value == 0:
+            raise ValueError("Valor zero não é permitido!")
+        numeros.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"Os números digitados e sua multiplicação por 5 são:\n--------------------------")
+for i in numeros:
+    print(f"{i} x 5 = {i * 5}")
+```
+
+### 38 - Modifique novamente o programa anterior, de modo a não exibir na saída os números zero que são mostrados para todas as posições que não receberam nenhum valor durante a atribuição (e portanto estão vazias).
+
+Não entendi. 🤔
+
+### 39 - Escreva um algoritmo que lê um vetor A(10) e os escreva, imprima a posição e o elemento do vetor.
+
+```py
+print("Olá humano 🖖\n")
+
+elementos = [1,2,3,'Mas o que temos aqui', 3.1415, ['Isso é outro vetor'], ('Aqui temos uma tupla'), 8, 9, 10]
+
+for (index, elemento) in enumerate(elementos):
+    print(f'''O elemento "{elemento}" do tipo {type(index)}, está na posição {index}''')
+```
+
+### 40 - Leia números de matrículas de alunos e armazene-os em uma tupla até o vetor ser preenchido por 10 matrículas. Esses números são distintos, ou seja, o vetor não armazenará valores repetidos.
+
+```py
+print("Olá humano 🖖\n")
+
+print("Digite os ńumeros das matrículas:\n")
+matriculas_array = []
+while len(matriculas_array) < 10:
+    try:
+        input_value = input(f"{len(matriculas_array) + 1}º matrícula:\n✏  ")
+        matriculas_array.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"As matrículas digitadas são:\n--------------------------")
+matriculas_set = set(matriculas_array)
+for m in sorted(matriculas_set):
+    print(f"{m}")
+```
+
+### 41 - Fazer um algoritmo que: Preencha uma tupla com X números inteiros, em que o último número lido seja 999 (o último número não fará parte do vetor). E imprima a tupla na ordem inversa.
+
+```py
+print("Olá humano 🖖\n")
+
+print("Digite 10 números inteiros:\n")
+numeros = ()
+sair = False
+while not(sair):
+    try:
+        input_value = int(input(f"{len(numeros) + 1}º número:\n✏  "))
+        if len(numeros) == 9:
+            if input_value == 999:
+                sair = True
+            else:
+                raise ValueError("O último valor deve ser 999!")
+        else:
+            numeros = numeros + (input_value,)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+print(f"As números digitadas em orderm reversa são:\n--------------------------")
+for num in sorted(numeros, reverse=True):
+    print(f"{num}")
+```
+
+#### 42 - Fazer um algoritmo que: Leia um vetor contendo 10 números, que correspondem a matrículas de alunos. Ler 3 matrículas e imprima uma mensagem informando se eles estão ou não presentes na lista
+
+```py
+print("Olá humano 🖖\n")
+
+matriculas = [10,20,30,40,50,60,70,80,90,100]
+print(f"Matrículas: {matriculas}\n---------------------------------")
+print("Digite o número de três matrículas e direi se estão presentes na lista de alunos:\n")
+numeros = []
+while len(numeros) < 3:
+    try:
+        input_value = int(input(f"{len(numeros) + 1}º número:\n✏  "))
+        numeros.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+for num in numeros:
+    if num in matriculas:
+        print(f"O número {num} está presente na lista de matrículas!")
+    else:
+        print(f"O número {num} não está presente na lista de matrículas!")
+```
+
+### 43 - Fazer um algoritmo que: Preencha 3 listas, o primeiro com a nota da primeira prova, o segundo com a nota da segunda prova e o terceiro com a média das 2 primeiras notas, e imprima o resultado “APROVADO” para aqueles que obtiverem uma média igual ou acima de 6, e “REPROVADO” para quem obtiverem uma média abaixo de 6. OBS.: Saia do laço quando a primeira nota for igual a -1.
+
+```py
+print("Olá humano 🖖\n")
+
+notas_n1 = []
+notas_n2 = []
+medias = []
+while len(notas_n1) < 3 and len(notas_n2) < 3:
+    try:
+        input_value = float(input(f"Nota do {len(notas_n1) + 1}º aluno da primeira prova:\n✏  "))
+        notas_n1.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+    try:
+        input_value = float(input(f"Nota do {len(notas_n2) + 1}º aluno da segunda prova:\n✏  "))
+        notas_n2.append(input_value)
+    except ValueError as e:
+        print("🚨 Valor inválido. Tente novamente!\n")
+        print(f"{e}\n")
+        
+medias = [(n1 + n2) / 2 for n1, n2 in zip(notas_n1, notas_n2)]
+
+for i in range(0, len(notas_n1)):
+    print(f"Aluno {i + 1} - Média: {medias[i]}\n")
+    
+    if medias[i] >= 6:
+        print("Aprovado!\n--------------------------")
+    else:
+        print("Reprovado!\n--------------------------")
+```
